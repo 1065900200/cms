@@ -1,10 +1,19 @@
 <?php
+// $list = $db('nav')->where('mid<>6 and mid<>7')->order("sort,id")->select();
 //header('Access-Control-Allow-Origin: http://www.baidu.com'); //设置http://www.baidu.com允许跨域访问
 //header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With'); //设置允许的跨域header
 session_start();
 if($_SESSION['userid'] == ""){
 	exit;
 }
+$db_config = include("../../../app/database.php");
+$mysqli = new mysqli($db_config['hostname'], $db_config['username'], $db_config['password'], $db_config['database']);
+$mysqli -> set_charset('utf8');
+// $sql = "SELECT * FROM `psk_upload` LIMIT 0, 1";
+// $list = $mysqli->query($sql);
+// $oderlist = $list->fetch_assoc();
+// var_dump($oderlist);
+// die;
 date_default_timezone_set("Asia/chongqing");
 error_reporting(E_ERROR);
 header("Content-Type: text/html; charset=utf-8");

@@ -28,35 +28,50 @@ $allowFiles = substr(str_replace(".", "|", join("", $allowFiles)), 1);
 $size = isset($_GET['size']) ? htmlspecialchars($_GET['size']) : $listSize;
 $start = isset($_GET['start']) ? htmlspecialchars($_GET['start']) : 0;
 $end = $start + $size;
+if ($_GET['action'] =='listimage') {
+    $sql = "SELECT COUNT(*)count  FROM `psk_upload`";
+    $list = $mysqli->query($sql);
+    $count = $list->fetch_assoc();
+    $total=$count['count'];
+    $sql = "SELECT * FROM `psk_upload` ORDER BY id DESC LIMIT $start, $end";
+    $result = $mysqli->query($sql);
+    $list = array();
+    while ($row = mysqli_fetch_assoc($result))
+    {
+        $list[]['url']=$row['url'];
+    }
+}else{
+    /* 获取文件列表 */
+    $path = $_SERVER['DOCUMENT_ROOT'] . (substr($path, 0, 1) == "/" ? "":"/") . $path;
+    $files = getfiles($path, $allowFiles);
+    if (!count($files)) {
+        return json_encode(array(
+            "state" => "no match file",
+            "list" => array(),
+            "start" => $start,
+            "total" => count($files)
+        ));
+    }
 
-/* 获取文件列表 */
-$path = $_SERVER['DOCUMENT_ROOT'] . (substr($path, 0, 1) == "/" ? "":"/") . $path;
-$files = getfiles($path, $allowFiles);
-if (!count($files)) {
-    return json_encode(array(
-        "state" => "no match file",
-        "list" => array(),
-        "start" => $start,
-        "total" => count($files)
-    ));
-}
+    /* 获取指定范围的列表 */
+    $len = count($files);
+    for ($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
+        $list[] = $files[$i];
+    }
+    $total =count($files);
+    //倒序
+    //for ($i = $end, $list = array(); $i < $len && $i < $end; $i++){
+    //    $list[] = $files[$i];
+    //}
 
-/* 获取指定范围的列表 */
-$len = count($files);
-for ($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
-    $list[] = $files[$i];
 }
-//倒序
-//for ($i = $end, $list = array(); $i < $len && $i < $end; $i++){
-//    $list[] = $files[$i];
-//}
 
 /* 返回数据 */
 $result = json_encode(array(
     "state" => "SUCCESS",
     "list" => $list,
     "start" => $start,
-    "total" => count($files)
+    "total" =>$total
 ));
 
 return $result;

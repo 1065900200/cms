@@ -121,6 +121,9 @@ class Uploader
         if (!(move_uploaded_file($file["tmp_name"], $this->filePath) && file_exists($this->filePath))) { //移动失败
             $this->stateInfo = $this->getStateInfo("ERROR_FILE_MOVE");
         } else { //移动成功
+            global $mysqli;
+            $sql = "INSERT INTO `psk_upload` ( `name`, `url`, `thumb`, `type`, `ext`) VALUES ( '".$this->fileName."','".$this->fullName."','".$this->fullName."','1','".$this->fileType."')";
+            $list = $mysqli->query($sql);
             $this->stateInfo = $this->stateMap[0];
         }
     }
@@ -161,6 +164,9 @@ class Uploader
         if (!(file_put_contents($this->filePath, $img) && file_exists($this->filePath))) { //移动失败
             $this->stateInfo = $this->getStateInfo("ERROR_WRITE_CONTENT");
         } else { //移动成功
+            global $mysqli;
+            $sql = "INSERT INTO `psk_upload` ( `name`, `url`, `thumb`, `type`, `ext`) VALUES ( '".$this->fileName."','".$this->fullName."','".$this->fullName."','1','".$this->fileType."')";
+            $list = $mysqli->query($sql);
             $this->stateInfo = $this->stateMap[0];
         }
 
@@ -253,6 +259,9 @@ class Uploader
         if (!(file_put_contents($this->filePath, $img) && file_exists($this->filePath))) { //移动失败
             $this->stateInfo = $this->getStateInfo("ERROR_WRITE_CONTENT");
         } else { //移动成功
+            global $mysqli;
+            $sql = "INSERT INTO `psk_upload` ( `name`, `url`, `thumb`, `type`, `ext`) VALUES ( '".$this->fileName."','".$this->fullName."','".$this->fullName."','1','".$this->fileType."')";
+            $list = $mysqli->query($sql);
             $this->stateInfo = $this->stateMap[0];
         }
 
