@@ -1,0 +1,103 @@
+{include file="index/head" /}
+<script src="/public/ueditor/ueditor.config.js"></script>
+<script src="/public/ueditor/ueditor.all.js"></script>
+<script>
+UE.getEditor('content'); 
+</script>
+<div class="box">
+  <div class="box-head">
+    <ul class="bhtab">
+      <li class="on"><a href="{:url('Site/info')}"><i class="icon-comment"></i> 网站信息</a></li>
+      <li><a href="{:url('Site/contact')}"><i class="icon-phone-square"></i> 联系信息</a></li>
+      <li><a href="{:url('Site/email')}"><i class="icon-envelope"></i> 邮箱配置</a></li>
+	  <li><a href="{:url('Site/other')}"><i class="icon-envelope"></i> 其他设置</a></li>
+    </ul>
+  </div>
+  <div class="form">
+    <form method="post" action="{:url('info')}" class="pskcmsform" data-type="ajax">      
+        <ul>
+          <li>
+            <label>网站标题：</label>
+            <div class="item">
+              <input type="text" name="webtitle" value="{$v.webtitle}" datatype="*" nullmsg="请输入网站标题" class="input w60"/>
+            </div>
+          </li>
+          <li>
+            <label>电脑端网站LOGO：</label>
+            <div class="item">
+              <input type="text" name="weblogo" value="{$v.weblogo}" class="input"/>
+              <button type="button" class="button fl" onclick="pskcms.showupload(this)" id="image1" at="dg"><i class="icon-plus"></i>浏览上传</button>
+              <div class="clear"></div>
+              <div class="input-image">{if $v.weblogo}<img src="{$v.weblogo}" alt="" />{/if}</div>
+            </div>
+          </li>
+		  <li>
+            <label>手机端网站LOGO：</label>
+            <div class="item">
+              <input type="text" name="waplogo" value="{$v.waplogo}" class="input"/>
+              <button type="button" class="button fl" onclick="pskcms.showupload(this)" id="image2" at="dg"><i class="icon-plus"></i>浏览上传</button>
+              <div class="clear"></div>
+              <div class="input-image">{if $v.waplogo}<img src="{$v.waplogo}" alt="" />{/if}</div>
+            </div>
+          </li>
+          <li>
+            <label>网站域名：</label>
+            <div class="item">
+              <input type="text" name="weburl" value="{$v.weburl}" datatype="*" nullmsg="请输入网站域名" class="input"/><span class="tips">必填 例如：http://www.xxx.cn/ 后面加上斜杠</span>
+            </div>
+          </li>
+          <li>
+            <label>网站关健字：</label>
+            <div class="item">
+              <input type="text" name="webkeywords" value="{$v.webkeywords}" class="input w100"/>
+            </div>
+          </li>
+          <li>
+            <label>网站描述：</label>
+            <div class="item">
+              <textarea name="webdescription" class="input w100" style="height:70px; margin-bottom:12px;">{$v.webdescription}</textarea>
+            </div>
+          </li>
+          <li>
+            <label>版权信息：</label>
+            <div class="item">
+            <script id="content" name="webcopyright" type="text/plain" style="width:100%;height:200px;">
+            {$v.webcopyright}
+    	    </script>   
+            </div>
+          </li>        
+          <li>
+            <label>网站状态：</label>
+            <div class="item">
+              <input type="hidden" value="{$v.webstatus|default=1}" name="webstatus" />
+           <div class="switch {if condition='$v.webstatus == 1'}on{/if}" id="closeweb"><em ontxt="打开" offtxt="关闭">{if condition='$v.webstatus==1'}打开{else/}关闭{/if}</em><i></i></div>
+            </div>
+          </li>
+          <li style="{if condition='$v.webstatus eq 1'}display:none;{else/}display:block;{/if}" id="webclosedesc">
+            <label>网站关闭说明：</label>
+            <div class="item">
+              <textarea name="webclosedesc" class="input w100" style="height:80px; margin-bottom:12px;">{$v.webclosedesc}</textarea>
+            </div>
+          </li>
+          <li>
+            <label>&nbsp;</label>
+            <div class="item">
+              <button type="submit" onclick="" class="button"><i class="icon-check"></i>提交</button>
+            </div>
+          </li>
+        </ul>
+      </form>      
+  </div>
+</div>
+<script>
+pskcms.submitform("{:url('info')}");
+$(function(){
+	$("#closeweb").click(function(){
+		if($("input[name=webstatus]").val()==0){
+			$("#webclosedesc").show();
+		}else{
+			$("#webclosedesc").hide();
+		}
+	})
+})
+</script>

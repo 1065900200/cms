@@ -1,0 +1,74 @@
+<div class="uploadbox">
+  <input type="hidden" name="upfile_id" value="{$id}" />  
+  <input type="hidden" name="at" value="{$at}" />
+  <button type="button" class="button" id="upfile1"><i class="icon-plus"></i>上传文件</button>
+  <div class="upload_file">
+    <ul id="upload_list">
+    {volist name="list" id="v"}
+    <li><a href="javascript:void(0);" onclick="getupfile(this)" src="{$v.url}" name="{$v.name}" ext="{$v.ext}" title="{$v.url}"><i class="icon-caret-right"></i> {$v.url}</a></li>
+    {/volist}
+    </ul>
+    <div class="clear"></div>
+    <div class="upimg_page"></div>
+  </div>
+</div>
+<script src="/public/admin/js/jPages.js"></script> 
+<script>
+layui.use('upload', function(){
+  var upload = layui.upload;		   
+  var uploadInst = upload.render({
+	elem:'#upfile1',	
+    url:"{:url('Common/doupload')}",  
+	accept:'file',
+	exts:'doc|docx|xls|xlsx|ppt|txt|zip|rar|gz|bz2|pdf|ios|7z|avi|mp4|swf|wmv|rm|rmvb|mkv|mp3|wma|wav',
+	field:'file',
+    method: 'post',
+	before: function(input){
+   		layer.load(1);		
+    },
+    done: function(res){
+	   console.log(res);
+      if(res.status=="y"){		  
+	  	  var html =  '<li><a href="javascript:void(0);" onclick="getupfile(this)" src="'+res.url+'" name="'+res.name+'" ext="'+res.ext+'">'+res.url+'</a></li>';
+	      $(".upload_file ul").prepend(html);	 
+	      upimgpage();
+	  }else{		
+	  	 layer.msg(res.info,{icon: 2,time:1500});	 
+	  }	 
+	  layer.closeAll('loading');
+    }
+  }); 
+});
+
+//获取文件
+var index = layer.index;
+function getupfile(obj){
+	  var id = $("input[name=upfile_id]").val();
+	  var at = $("input[name=at]").val();
+	  var src  = $(obj).attr("src");
+	  var name = $(obj).attr("name");
+	  var ext  = $(obj).attr("ext");	  
+	  if(at=="editor"){
+	  	tinymce.activeEditor.insertContent('<a target="_blank" href="'+src+'" >'+name+'.'+ext+'</a>');	
+	  }else{
+	  	$("#"+id).prev().val(src);
+	  }
+	  layer.close(index); //关闭当前弹层	
+}  	
+
+//AJAX加载分页
+$(function(){
+   upimgpage();
+});
+
+function upimgpage(){
+	 $(".upimg_page").jPages({
+        containerID : "upload_list",
+        previous : "上一页",
+        next : "下一页",
+        perPage :9,
+        delay : 10
+    });
+}
+
+</script>

@@ -1,0 +1,44 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <h2>百度推送</h2>
+  </div>
+  <div class="form">
+    <form method="post" action="{:url('baiduurl')}" class="pskcmsform" data-type="ajax">      
+        <ul>        
+          <li style="margin-top:12px;">
+            <label>主动推送(实时)：</label>
+            <div class="item">
+              <input type="hidden" value="{$v.webzdts|default=1}" name="webzdts" />
+              <div class="switch {if condition='$v.webzdts == 1'}on{/if}" id="webzdts"><em ontxt="打开" offtxt="关闭">{if condition='$v.webzdts==1'}打开{else/}关闭{/if}</em><i></i></div>
+              <span class="tips">将发布的文章主动推送到百度连接提交地址 (注：须先到百度提交网址 https://ziyuan.baidu.com/site/index)</span>
+            </div>
+          </li>
+          <li>
+            <label>主动推送接口地址：</label>
+            <div class="item">
+             	<input type="text" class="input" value="{$v.webzdtsurl}" nullmsg="请输入百度推送接口地址" {if condition='$v.webzdts == 1'}datatype="*"{/if} name="webzdtsurl" /> <span class="tips">百度提交网址后，在主动推送（实时）下面有推送接口地址</span>
+            </div>
+          </li>
+          <li>
+            <label>&nbsp;</label>
+            <div class="item">
+              <button type="submit" onclick="" class="button"><i class="icon-check"></i>提交</button>
+            </div>
+          </li>
+        </ul>
+      </form>      
+  </div>
+</div>
+<script>
+pskcms.submitform("{:url('baiduurl')}");
+$(function(){
+	$("#webzdts").click(function(){
+		if($("input[name=webzdts]").val()==0){
+			$("input[name=webzdtsurl]").removeAttr("datatype");
+		}else{
+			$("input[name=webzdtsurl]").attr("datatype","*");
+		}
+	})
+})
+</script>

@@ -1,0 +1,31 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <h2>{$v.id?'编辑':'添加'}角色</h2>
+    <a href="javascript:history.go(-1);" class="btn fr"><i class="icon-mail-reply (alias)"></i>返回</a></div>
+  <div class="form">
+    <form method="post" action="{:url('addrole')}" class="pskcmsform">
+    <input type="hidden" name="id" value="{$v.id}" />
+    <ul>
+      <li>
+        <label>角色名称：</label>
+        <div class="item">
+        <input type="text" name="name" value="{$v.name}" maxlength="15" class="input" datatype="*" ajaxurl="{:url('checkrole',['id'=>$v.id])}" nullmsg="请输入角色名称"/></div>
+      </li>    
+     
+      <li><label>角色状态：</label>
+      	  <div class="item">
+          <input type="hidden" value="{$v.status}" name="status" />
+          <div class="switch {$v.status==1?on:''}"><em ontxt="正常" offtxt="锁定">{$v.status==1?'正常':'锁定'}</em><i></i></div>
+          </div>
+      </li>
+      <li>
+        <label>角色描述：</label>
+        <div class="item"><textarea name="remark" class="input" style="height:100px;">{$v.remark}</textarea></div>
+      </li>
+      <li><label>&nbsp;</label><div class="item"><button type="submit" class="button"><i class="icon-check"></i>{$v.id?'编辑':'添加'}</button></div></li>
+    </ul>
+    </form>
+  </div>
+</div>
+<script> pskcms.submitform("{:url('role')}"); </script>

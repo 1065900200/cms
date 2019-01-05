@@ -1,0 +1,35 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+  <a href="{:url('adduser')}" class="btn"><i class="icon-plus-square-o"></i>添加用户</a>
+  <a href="javascript:history.go(0);" class="btn fr"><i class="icon-refresh"></i> 刷新</a>
+  </div>
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>用户名</th>
+      <th>所属角色</th>
+      <th>描述</th>
+      <th>最后登录IP</th>
+      <th>最后登录时间</th>
+      <th>状态</th>
+      <th width="220">操作</th>
+    </tr>
+    {volist name="list" id="v"}
+    <tr>
+      <td>{$v.id}</td>
+      <td>{$v.username}</td>
+      <td>{$v.rolename}</td>
+      <td>{$v.remark}</td>
+      <td>{$v.loginip}</td>
+      <td>{if condition="$v['logintime']"}{$v['logintime']|date="Y-m-d H:i:s",###}{/if}</td>
+      <td>{$v.status==1?'正常':'锁定'}</td>
+      <td>
+      <a href="{:url('adduser',['id'=>$v.id])}" class="btn"><i class="icon-edit"></i> 编辑</a>
+      <a href="javascript:void(0);" onclick="pskcms.del('{:url('deluser',['id'=>$v.id])}')" class="btn red"><i class="icon-trash-o"></i> 删除</a>
+      </td>
+    </tr>
+    {/volist}
+  </table>
+</div>
+

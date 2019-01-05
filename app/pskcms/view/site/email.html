@@ -1,0 +1,82 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <ul class="bhtab">
+      <li><a href="{:url('Site/info')}"><i class="icon-comment"></i> 网站信息</a></li>
+      <li><a href="{:url('Site/contact')}"><i class="icon-phone-square"></i> 联系信息</a></li>
+      <li class="on"><a href="{:url('Site/email')}"><i class="icon-envelope"></i> 邮箱配置</a></li>
+	  <li><a href="{:url('Site/other')}"><i class="icon-envelope"></i> 其他设置</a></li>
+    </ul>
+  </div>
+  <div class="form">  
+      <form method="post" action="{:url('email')}" class="pskcmsform">
+        <ul>
+         
+          <li>
+            <label>收件人：</label>
+            <div class="item">
+              <input type="text" name="email_form_name" value="{$v.email_form_name}" class="input"/>
+            </div>
+          </li>
+          <li>
+            <label>收件人邮箱地址：</label>
+            <div class="item">
+              <input type="text" name="email_form" value="{$v.email_form}" class="input"/>
+            </div>
+          </li>
+          <li>
+            <label>STMP服务器：</label>
+            <div class="item">
+              <input type="text" name="email_host" value="{$v.email_host}" class="input">
+            </div>
+          </li>
+          <li>
+            <label>连接方式：</label>
+            <div class="item">
+               <div class="select"><i class="icon-caret-down"></i>
+                <input type="hidden" name="email_smtpsecure" value="{$v.email_smtpsecure}" class="inputval" />          
+                <input type="text" readonly="readonly" class="input"/>
+                <dl class="select-value syui-anim syui-anim-up">                  
+                  <dd data="" {$v.email_smtpsecure==''?'class=selected':''} >默认</dd>  
+                  <dd data="ssl" {$v.email_smtpsecure=='ssl'?'class=selected':''} >ssl</dd> 
+                  <dd data="tls" {$v.email_smtpsecure=='tls'?'class=selected':''} >tls</dd>                 
+                </dl>
+              </div>
+            </div>
+          </li>
+          <li>
+            <label>SMTP服务器端口：</label>
+            <div class="item">
+               <input type="text" name="email_port" value="{$v.email_port}"  class="input"/>
+            </div>
+          </li>
+          <li>
+            <label>发件箱帐号：</label>
+            <div class="item">
+               <input type="text" name="email_send_name" value="{$v.email_send_name}" class="input"/>
+            </div>
+          </li>
+          <li>
+            <label>发件箱密码：</label>
+            <div class="item">
+               <input type="password" name="email_send_pass" value="{$v.email_send_pass}" class="input"/>
+            </div>
+          </li>    
+           <li>
+            <label>留言是否发送邮件：</label>
+            <div class="item">
+              <input type="hidden" value="{$v.email_issend|default=1}" name="email_issend" />
+           <div class="switch {if condition='$v.email_issend == 1'}on{/if}" id="closeweb"><em ontxt="是" offtxt="否">{if condition='$v.email_issend==1'}是{else/}否{/if}</em><i></i></div>
+            </div>
+          </li>         
+          <li>
+            <label>&nbsp;</label>
+            <div class="item">
+              <button type="submit" class="button"><i class="icon-check"></i>提交</button>
+            </div>
+          </li>
+        </ul>
+    </form>
+  </div>
+</div>
+<script> pskcms.submitform("{:url('email')}"); </script>

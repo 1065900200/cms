@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>后台管理</title>
+<link rel="stylesheet" href="_ACSS_/admin.css?v={:time()}" />
+<script src="_AJS_/jquery.js?v={:time()}"></script>
+</head>
+<body>
+<div class="content">
+  <div class="header">
+    <h1>帕斯卡后台管理</h1>
+    <ul class="headmenu">
+     <li {if $n==1}class="on"{/if}><a href="{:url('Index/index',['n'=>1])}"><i class="icon-gear (alias)"></i>系统设置</a></li>
+     <li {if $n==2}class="on"{/if}><a href="{:url('Index/index',['n'=>2])}"><i class="icon-comment"></i>内容管理</a></li>
+     <li><a href="{:url('Common/clearCache')}"><i class="icon-lemon-o"></i>清除缓存</a></li>
+     <li><a href="/" target="_blank"><i class="icon-home"></i>前台首页</a></li>  
+    </ul>
+    <div class="fr">
+    <div class="meminfo">
+    <p class="p1"><i class="icon-user"></i>欢迎您，{$Think.session.username} <em class="icon-caret-down"></em></p>
+    <div class="memson syui-anim syui-anim-up">
+    <p><a href="{:url('Site/info')}" target="main"><i class="icon-gear (alias)"></i>网站信息</a></p>
+    <p><a href="{:url('Rbac/adduser',['id'=>$Think.session.userid])}" target="main"><i class="icon-unlock-alt"></i>修改密码</a></p>
+    <p><a href="{:url('Login/logout')}"><i class="icon-sign-out"></i>退出登录</a></p>
+    </div>
+    </div>
+    </div>
+  </div>
+  <div class="menu">  
+   {if condition="$n eq 1"}    
+    <ul>  
+      <li>
+        <h2><a href="javascript:void(0);" class="a1"><i class="icon-gear (alias)"></i>网站设置<em class="icon-angle-right"></em></a></h2>
+        <div class="mson">
+          <p><a href="{:url('Site/info')}" target="main"><i class="icon-caret-right"></i>网站信息</a></p>
+          <p><a href="{:url('Site/nav')}" target="main"><i class="icon-caret-right"></i>导航管理</a></p>
+          <p><a href="{:url('Site/image')}" target="main"><i class="icon-caret-right"></i>文件管理</a></p>          
+          <p><a href="{:url('Site/uploadset')}" target="main"><i class="icon-caret-right"></i>上传设置</a></p>                
+          <p><a href="{:url('Site/book')}" target="main"><i class="icon-caret-right"></i>留言管理</a></p>
+        </div>
+      </li>
+      <li>
+        <h2><a href="javascript:void(0);" class="a1"><i class="icon-folder-open"></i>权限管理<em class="icon-angle-right"></em></a></h2>
+        <div class="mson">
+          <p><a href="{:url('Rbac/user')}" target="main"><i class="icon-caret-right"></i>用户管理</a></p>
+          <p><a href="{:url('Rbac/role')}" target="main"><i class="icon-caret-right"></i>角色管理</a></p>
+          <p><a href="{:url('Rbac/node')}" target="main"><i class="icon-caret-right"></i>节点管理</a></p>
+        </div>
+      </li>  
+       <li>
+        <h2><a href="javascript:void(0);" class="a1"><i class="icon-folder-open"></i>网站优化<em class="icon-angle-right"></em></a></h2>
+        <div class="mson">        
+          <p><a href="{:url('Seo/baiduurl')}" target="main"><i class="icon-caret-right"></i>百度推送</a></p>
+          <p><a href="{:url('Seo/sitelink')}" target="main"><i class="icon-caret-right"></i>网站内链</a></p>
+          <p><a href="{:url('Seo/sitemap')}" target="main"><i class="icon-caret-right"></i>站点地图</a></p>
+          <p><a href="{:url('Seo/spider')}" target="main"><i class="icon-caret-right"></i>蜘蛛统计</a></p>
+          <p><a href="{:url('Seo/link')}" target="main"><i class="icon-caret-right"></i>友情连接</a></p>
+        </div>
+      </li>  
+      {if condition="PHP_VERSION lt 7"}
+      <li>
+        <h2><a href="javascript:void(0);" class="a1"><i class="icon-database"></i>数据管理<em class="icon-angle-right"></em></a></h2>
+        <div class="mson">
+          <p><a href="{:url('Database/backup')}" target="main"><i class="icon-caret-right"></i>备份数据库</a></p>
+          <p><a href="{:url('Database/importsql')}" target="main"><i class="icon-caret-right"></i>还原数据库</a></p>
+        </div>
+      </li>
+      {/if}
+    </ul>
+    {/if}
+    {if condition="$n eq 2"}
+    <ul> 
+      <li>
+      <h2><a href="javascript:void(0);" class="a1"><i class="icon-dashboard (alias)"></i>基本设置<em class="icon-angle-right"></em></a></h2>
+      <div class="mson">     
+      <p><a href="{:url('Site/topimg',['type'=>'pc'])}" target="main"><i class="icon-caret-right"></i>内页顶图【电脑】</a></p>  
+      <p><a href="{:url('Site/topimg',['type'=>'wp'])}" target="main"><i class="icon-caret-right"></i>内页顶图【手机】</a></p> 
+      {volist name="adv" id="v"}      
+      <p><a href="{:url('Article/adv',['nid'=>$v.id])}" target="main"><i class="icon-caret-right"></i>{$v.title}</a></p>
+      {/volist}
+      </div>
+      </li>
+      {volist name="list" id="v"}        
+      <li>
+        <h2><a href="javascript:void(0);" class="a1"><i class="{$v.icon}"></i>{$v.title}<em class="icon-angle-right"></em></a></h2>
+        <div class="mson">
+          <p><a href="{:url('Article/index',['nid'=>$v.id])}" target="main"><i class="icon-caret-right"></i>内容列表</a></p>
+          <p><a href="{:url('Article/add',['nid'=>$v.id])}" target="main"><i class="icon-caret-right"></i>添加内容</a></p>
+          {if condition="$v.showcate eq 1"}
+          <p><a href="{:url('Cate/index',['nid'=>$v.id])}" target="main"><i class="icon-caret-right"></i>分类管理</a></p>
+          {/if}
+        </div>
+      </li>
+      {/volist}
+    </ul>
+    {/if}
+  </div>
+  <div class="location">
+    <a href="{:url('Index/home')}" target="main"><i class="icon-home"></i>首页</a><i>/</i><span class="s1">系统设置</span><i>/</i><span class="s2">网站信息</span>
+    <div class="showmenu"><em class="e1"></em><em></em><em></em></div>
+  </div>
+  <div class="main"><iframe src="{:url('Index/home')}" name="main" style="width: 100%; height: 100%; display: inline;" frameborder="0"></iframe></div>
+</div>
+<script>
+
+$(function(){
+	$(".menu ul li h2").click(function(){
+	  $(this).next().slideToggle(200);	
+	  $(this).parent().toggleClass("on"); 
+    $(this).parents('li').siblings().removeClass('on').find('.mson').slideUp('fast');
+  	})
+	$(".menu .mson a").click(function(){
+		$(".menu .mson a").removeClass("on");
+		$(this).addClass("on");
+		var txt1 = $(this).parent().parent().parent().find("h2 a").text();
+		var txt2 = $(this).text();
+		$(".location .s1").text(txt1);
+		$(".location .s2").text(txt2);
+		$(".menu").removeClass("show");
+	})	
+	$(".meminfo").hover(function(){
+		$(this).find(".memson").show();
+		$(this).find(".p1").addClass("on");
+	},function(){
+		$(this).find(".memson").hide();
+		$(this).find(".p1").removeClass("on");
+	})
+	$(".showmenu").click(function(){
+		$(".menu").toggleClass("show");
+	})
+})
+</script>
+</body>
+</html>

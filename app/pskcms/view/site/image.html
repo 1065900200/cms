@@ -1,0 +1,48 @@
+{include file="index/head" /}
+<div class="box">
+  <form method="post" action="{:url('dels')}" id="listform">
+    <div class="box-head">
+       <ul class="search">       
+        <li><span>筛选</span>
+          <select name="type" onchange="pskcms.search('{:url('image')}')">
+            <option value="">选择</option>
+            <option value="1">图片</option>
+            <option value="2">文件</option>
+          </select>
+        </li>
+        </ul>
+      <a href="javascript:history.go(0);" class="btn fr"><i class="icon-refresh"></i> 刷新</a> </div>
+    <table class="table">
+      <tr>
+        <th width="100">ID</th>
+        <th width="20%">缩略图</th>
+        <th style="text-align:left">图片路径</th>
+        <th width="200">操作</th>
+      </tr>
+      {volist name="list" id="v"}
+      <tr>
+        <td><input type="checkbox" name="id[]" value="{$v.id}" />
+          {$v.id}</td>
+        <td>
+        {if condition="$v.type eq 1"}
+        <a href="{$v.url}" class="imgview"><img src="{$v.thumb}" width="30" height="30"></a>
+        {else/}
+         <a href="{$v.url}" target="_blank"><img src="_AIMG_/file.png" width="30" height="30"></a>
+        {/if}
+        </td>
+        <td style="text-align:left">{$v.url}</td>
+        <td><a href="javascript:void(0);" onclick="pskcms.del('{:url('delimage',['id'=>$v.id])}')" class="btn red"><i class="icon-trash-o"></i> 删除</a></td>
+      </tr>
+      {/volist}      
+      <tr>
+        <td colspan="4"><ul class="operat">
+            <li class="li1"><input type="checkbox" onclick="pskcms.allselect(this)" /> 全选</li>
+            <li><a href="javascript:void(0);" onclick="pskcms.delallSelect('{:url('delAllImage')}')" class="btn red"><i class="icon-trash-o"></i> 批量删除</a></li>
+          </ul></td>
+      </tr>
+      <tr>
+        <td colspan="4"><div class="page">{$page}</div></td>
+      </tr>
+    </table>
+  </form>
+</div>

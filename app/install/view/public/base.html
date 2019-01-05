@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PSKcms系统安装</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- zui -->
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="/public/admin/css/admin.css" rel="stylesheet">
+<script src="/public/admin/js/jquery.js"></script>
+<style>
+body { font-family: "Microsoft Yahei", '新宋体'; }
+.container { background: #ffffff; margin: 50px auto; padding:0px 20px; padding-bottom:20px; width: 1024px; border-radius: 5px; overflow: hidden; }
+.header-title { border-bottom: 1px solid #dedede; margin-bottom: 10px; }
+.progress-tool { padding: 10px; }
+.progress { height: 30px; }
+.progress-bar { line-height: 30px; font-size: 14px; }
+.article { padding: 0 20px; }
+h1 { font-size: 18px; color: #333333; font-weight: bold; }
+h2 { font-size: 16px; color: #333333; font-weight: bold; }
+a:hover{ text-decoration:none;}
+.table td{ text-align:left;}
+.table>thead>tr>th{ border-bottom:1px solid #eee;}
+
+/***网站安装***/
+.install{ max-width:900px; margin:0 auto; border-radius:5px; background:#fff; padding-bottom:20px; overflow:hidden; margin:100px auto;}
+.install .ins-foot{ color:#999; text-align:center; margin-top:10px;}
+.install .ins-head{ background:#0194da; overflow:hidden; color:#fff; padding:15px;}
+.install .ins-head h1{ float:left; width:50%; color:#fff;}
+.install .ins-head span{ float:right; margin-top:15px;}
+.install .ins-box{ background:#fff; padding:25px;}
+.install .article-content{ width:100%; height:400px; border-radius:4px; overflow-y:auto; border:1px solid #eee; resize:none; background:#f7f7f7; padding:12px; font-size:14px; color:#666; line-height:23px; margin-bottom:10px;}
+.install .ins-box .textarea p{ margin-bottom:10px;}
+.ins-step{ overflow:hidden; padding-bottom:12px; margin-top:20px; border-bottom:1px solid #eee; margin-bottom:12px;}
+.ins-step li{ display:inline-block; font-size:16px; color:#999; line-height:35px; float:left; margin-left:50px;}
+.ins-step li em{ width:35px; height:35px; float:left; background:#ddd; font-weight:bold; color:#fff; border-radius:50%; text-align:center; line-height:35px; margin-right:12px;}
+.ins-step li.li3{ float:right;}
+.ins-step li.success { color:#0194da;}
+.ins-step li.success em{ background:#0194da; color:#fff;}
+.ins-step li.primary { color:#0194da;}
+.ins-step li.primary em{ background:#0194da; color:#fff;}
+.ins-step li.li2{ margin-left:280px;}
+.install .table td{ vertical-align:middle; line-height:normal;}
+.install .table td span{ color:#999;}
+.install .table td.td1{ text-align:right; width:169px;}
+.install .table .form-control{ box-shadow:none; border-radius:2px; border-color:#ddd; width:200px;}
+.install .table .form-control:hover{ border-color:#0194da; box-shadow:#0194da 0 0 2px;}
+
+
+
+</style>
+</head>
+
+<body style="background:#333">
+<div class="install">
+  <div class="ins-head">
+    <h1><?php echo PSKCMS_NAME ?>系统安装</h1><span><?php echo PSKCMS_VERSION ?></span>
+  </div>
+    <ul class="ins-step">
+      <li class="{$status['index']}"><em>1</em>系统安装</li>  
+      <li class="{$status['check']}"><em>2</em>环境检测</li>   
+      <li class="{$status['config']}"><em>3</em>系统配置</li>   
+      <li class="{$status['sql']}"><em>4</em>数据库安装</li>   
+      <li class="{$status['complete']}"><em>5</em>安装完成</li>      
+    </ul>    
+  <div class="article margin-top"> {block name="body"}{/block}
+    <div class="margin-top"> {block name="footer"}{/block} </div>
+  </div>
+</div>
+</body>
+</html>

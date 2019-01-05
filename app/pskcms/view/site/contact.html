@@ -1,0 +1,94 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <ul class="bhtab">
+      <li><a href="{:url('Site/info')}"><i class="icon-comment"></i> 网站信息</a></li>
+      <li class="on"><a href="{:url('Site/contact')}"><i class="icon-phone-square"></i> 联系信息</a></li>
+      <li><a href="{:url('Site/email')}"><i class="icon-envelope"></i> 邮箱配置</a></li>
+	  <li><a href="{:url('Site/other')}"><i class="icon-envelope"></i> 其他设置</a></li>
+    </ul>
+  </div>
+  <div class="form">
+    <form method="post" action="{:url('contact')}" class="pskcmsform">
+      <ul>
+       <li>
+          <label>公司名称：</label>
+          <div class="item">
+            <input type="text" name="contact_company" value="{$v.contact_company}" class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>联系人：</label>
+          <div class="item">
+            <input type="text" name="contact_name" value="{$v.contact_name}" class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>手机号：</label>
+          <div class="item">
+            <input type="text" name="contact_mobile" value="{$v.contact_mobile}" class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>座机：</label>
+          <div class="item">
+            <input type="text" name="contact_tel" value="{$v.contact_tel}" class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>400电话：</label>
+          <div class="item">
+            <input type="text" name="contact_400" value="{$v.contact_400}" class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>传真：</label>
+          <div class="item">
+            <input type="text" name="contact_fax" value="{$v.contact_fax}" class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>客服QQ：</label>
+          <div class="item">
+            <input type="text" name="contact_qq" value="{$v.contact_qq}"  class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>邮箱：</label>
+          <div class="item">
+            <input type="text" name="contact_email" value="{$v.contact_email}"  class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>地址：</label>
+          <div class="item">
+            <input type="text" name="contact_address" value="{$v.contact_address}"  class="input"/>
+          </div>
+        </li>
+        <li>
+          <label>微信二维码：</label>
+          <div class="item">
+            <input type="text" name="contact_ewm" value="{$v.contact_ewm}" class="input"/>
+            <button type="button" class="button fl" onclick="pskcms.showupload(this)" id="image1" at="dg"><i class="icon-plus"></i>浏览上传</button>
+            <div class="clear"></div>
+            <div class="input-image">{if $v.contact_ewm}<img src="{$v.contact_ewm}" alt="" />{/if}</div>
+          </div>
+        </li>
+        <li>
+          <label>地图坐标：</label>
+          <div class="item">
+            <input type="text" name="contact_latlng" value="{$v.contact_latlng}"  class="input"/>
+            <a class="button fl" href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank"><i class="icon-mail-forward (alias)"></i>获取坐标</a>
+          </div>
+        </li>
+        <li>
+          <label>&nbsp;</label>
+          <div class="item">
+            <button type="submit" class="button"><i class="icon-check"></i>提交</button>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
+<script> pskcms.submitform("{:url('contact')}"); </script>

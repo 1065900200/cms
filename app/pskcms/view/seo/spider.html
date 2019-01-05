@@ -1,0 +1,46 @@
+{include file="index/head" /}
+<form method="get" action="{:url('spider')}" id="listform">
+  <div class="box">
+    <div class="box-head">
+      <ul class="search">
+        <li><span>搜索：</span></li>
+        <li><span>搜索引擎</span>
+          <select name="title" onchange="pskcms.search('{:url('spider')}')">
+            <option value="">请选择搜索引擎</option>
+            <option value="baidu">baidu</option>
+            <option value="google">google</option>
+            <option value="soso">soso</option>
+            <option value="youdao">youdao</option>
+            <option value="bing">bing</option>
+            <option value="sogou">sogou</option>
+            <option value="yahoo">yahoo</option>
+            <option value="Alexa">Alexa</option>
+            <option value="so">so</option>
+          </select>
+        </li>
+        <li><a href="javascript:void(0);" onclick="pskcms.del('{:url('delspider',[type=>$type])}')" class="btn red"><i class="icon-trash-o"></i> 清空数据</a> </li>
+      </ul>
+      <a href="javascript:history.go(0);" class="btn fr"><i class="icon-refresh"></i> 刷新</a> </div>
+    <table class="table">
+      <tr>
+        <td>ID</td>
+        <td>搜索引擎名称</td>
+        <td>页面URL</td>
+        <td>IP</td>
+        <td>日期</td>
+      </tr>
+      {volist name="list" id="vo"}
+      <tr>
+        <td>{$vo.id}</td>
+        <td>{$vo.title}</td>
+        <td>{$vo.url}</td>
+        <td>{$vo.ip}</td>
+        <td>{$vo.datetime|date='Y-m-d H:i:s',###}</td>        
+      </tr>
+      {/volist}
+      <tr>
+        <td colspan="6"><div class="page">{$page}</div></td>
+      </tr>
+    </table>
+  </div>
+</form>

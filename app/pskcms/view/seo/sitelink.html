@@ -1,0 +1,56 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+     <h2><a href="{:url('sitelink')}" class="btn"><i class="icon-plus-square-o"></i> 添加</a> </h2> 
+     <a href="javascript:history.go(0);" class="btn fr"><i class="icon-refresh"></i> 刷新</a> 
+  </div>
+  <table class="table">
+      <tr>
+        <th width="100">ID</th>
+        <th width="15%">关键词</th>
+        <th>URL</th>      
+        <th width="200">操作</th>
+      </tr>
+      {volist name="list" id="vo"}
+      <tr>
+        <td>{$vo.id}</td>
+        <td>{$vo.title}</td>
+        <td>{$vo.url}</td>        
+        <td>
+        <a href="javascript:void(0);" onclick="pskcms.del('{:url('delsitelink',['id'=>$vo.id])}')" class="btn red"><i class="icon-trash-o"></i> 删除</a>
+        </td>
+      </tr>
+      {/volist}      
+      <tr>
+        <td colspan="4"><div class="page">{$page}</div></td>
+      </tr>
+    </table>
+  <div class="form">
+    <form method="post" action="{:url('sitelink')}" class="pskcmsform" data-type="ajax">  
+        <input type="hidden" name="id" value="{$v.id}" />    
+        <ul>
+          <li>
+            <label>关键词：</label>
+            <div class="item">
+              <input type="text" name="title" value="{$v.title}" datatype="*" nullmsg="请输入关键词" class="input"/> <span class="tips">添加过程会自动转换内链，请耐心等待</span>
+            </div>
+          </li>
+          <li>
+            <label>URL：</label>
+            <div class="item">
+              <input type="text" name="url" value="{$v.url}" class="input" datatype="*" nullmsg="请输入URL"/>
+            </div>
+          </li>         
+          <li>
+            <label>&nbsp;</label>
+            <div class="item">
+              <button type="submit" onclick="" class="button"><i class="icon-check"></i>提交</button>
+            </div>
+          </li>
+        </ul>
+      </form>      
+  </div>
+</div>
+<script>
+pskcms.submitform("{:url('sitelink')}");
+</script>

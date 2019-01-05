@@ -1,0 +1,47 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <h2>{$v.id?'编辑':'添加'}用户</h2>
+    <a href="javascript:history.go(-1);" class="btn fr"><i class="icon-mail-reply (alias)"></i>返回</a></div>
+  <div class="form">
+    <form method="post" action="{:url('adduser')}" class="pskcmsform">
+    <input type="hidden" name="id" value="{$v.id}" />
+    <ul>
+      <li>
+        <label>用户名：</label>
+        <div class="item"><input type="text" name="username" value="{$v.username}" maxlength="15" class="input" ajaxurl="{:url('checkuser',[id=>$v.id])}" datatype="/^\w+$/" errormsg="只能输入字母和数字" nullmsg="请输入用户名"/></div>
+      </li>
+      <li>
+        <label>用户密码：</label>
+        <div class="item"><input type="password" name="password" maxlength="20" class="input" {if condition="v.id eq ''"} datatype="*5-20" {/if} nullmsg="请输入密码"/></div>
+      </li>
+      <li>
+        <label>所属角色：</label>
+        <div class="item">
+          <div class="select"><i class="icon-caret-down"></i>
+          <input type="hidden" name="role" value="{$v.role}" class="inputval" />          
+          <input type="text" readonly="readonly" placeholder="请选择角色" class="input" datatype="*" nullmsg="请选择角色"/>
+          <dl class="select-value syui-anim syui-anim-up">
+            {volist name="role" id="vo"}
+            <dd data="{$vo.id}" {$vo.id==$v.role?'class=selected':''} >{$vo.name}</dd>
+            {/volist}
+          </dl>
+        </div>        
+        </div>
+      </li>
+      <li><label>用户状态：</label>
+      	  <div class="item">
+          <input type="hidden" value="{$v.status}" name="status" />
+          <div class="switch {$v.status==1?on:''}"><em ontxt="正常" offtxt="锁定">{$v.status==1?'正常':'锁定'}</em><i></i></div>
+          </div>
+      </li>
+      <li>
+        <label>用户描述：</label>
+        <div class="item"><textarea name="remark" class="input" style="height:100px;">{$v.remark}</textarea></div>
+      </li>
+      <li><label>&nbsp;</label><div class="item"><button type="submit" class="button"><i class="icon-check"></i>{$v.id?'编辑':'添加'}</button></div></li>
+    </ul>
+    </form>
+  </div>
+</div>
+<script> pskcms.submitform("{:url('user')}"); </script>

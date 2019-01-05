@@ -1,0 +1,84 @@
+<div class="uploadbox">
+  <input type="hidden" name="upfile_id" value="{$id}" />
+  <input type="hidden" name="at" value="{$at}" />
+  <button type="button" class="button" id="upimg1"><i class="icon-plus"></i>上传图片</button>
+  <div class="upload_list">
+    <ul id="upload_list">
+    {volist name="list" id="v"}
+    <li><a href="javascript:void(0);" onclick="getupimg(this)"><img src="{$v.thumb}" big="{$v.url}" alt="" /></a></li>
+    {/volist}
+    </ul>
+    <div class="clear"></div>
+    <div class="upimg_page"></div>
+  </div>
+</div>
+<script src="/public/admin/js/jPages.js"></script> 
+<script>
+layui.use('upload', function(){
+  var upload = layui.upload;		   
+  var uploadInst = upload.render({
+	elem:'#upimg1',	
+    url:"{:url('Common/doupload')}",  
+	acceptMime:'image/*',
+	accept:'images',
+	exts:'jpg|png|gif|bmp|jpeg',
+	field:'file',
+    method: 'post',
+	before: function(input){
+   		layer.load(1);		
+    },
+    done: function(res){
+      if(res.status=="y"){		  
+	  	  var html =  '<li><a href="javascript:void(0);" onclick="getupimg(this)"><span><img src="'+res.thumb+'" big="'+res.url+'" alt="" /></span></a></li>';
+	      $(".upload_list ul").prepend(html);	 
+	      upimgpage();
+	  }else{		
+	  	 layer.msg(res.info,{icon: 2,time:1500});	 
+	  }
+	  layer.closeAll('loading');	 
+    }
+  }); 
+});
+
+//获取图片
+var index = layer.index;
+function getupimg(obj){
+	  var id = $("input[name=upfile_id]").val();
+	  var at = $("input[name=at]").val();
+	  var src = $(obj).find("img").attr("big");
+	  if(at=="pl"){ 
+	    //显示多张图片
+		var html = '<dd><a href="'+src+'" class="imgview"><img src="'+src+'" /></a><input type="hidden" name="imgs[]" value="'+src+'" /><span onclick="pskcms.removeImg(this)">x</span></dd>';
+	  	$("#"+id).parent().parent().prepend(html);
+	  }else	if(at=="editor"){ 
+	    //显示编辑器图片
+	  	tinymce.activeEditor.insertContent("<img src='"+src+"' />");	
+	  }else{ 
+	    //显示单张图片
+	  	$('#'+id).prev().attr("value",src);
+		var img = $('#'+id).parent().find(".input-image");
+		if(img.find("img").length==0){
+			img.append("<img src='"+src+"' />");
+		}else{
+			$('#'+id).parent().find(".input-image img").attr("src",src);
+		}
+	  }
+	  layer.close(index); //关闭当前弹层	
+}  	
+
+//AJAX加载分页
+$(function(){
+   upimgpage();
+});
+
+function upimgpage(){
+	 $(".upimg_page").jPages({
+        containerID : "upload_list",
+        previous : "上一页",
+        next : "下一页",
+        perPage :18,
+        delay : 10
+    });
+}
+
+</script>

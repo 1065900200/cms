@@ -1,0 +1,58 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <ul class="bhtab">
+      <li><a href="{:url('Site/info')}"><i class="icon-comment"></i> 网站信息</a></li>
+      <li><a href="{:url('Site/contact')}"><i class="icon-phone-square"></i> 联系信息</a></li>
+      <li><a href="{:url('Site/email')}"><i class="icon-envelope"></i> 邮箱配置</a></li>
+	  <li class="on"><a href="{:url('Site/other')}"><i class="icon-envelope"></i> 其他设置</a></li>
+    </ul>
+  </div>
+  <div class="form">
+    <form method="post" action="{:url('other')}" class="pskcmsform" data-type="ajax">      
+        <ul>
+
+          <li>
+            <label>Pc简化分页模式：</label>
+            <div class="item">
+              <input type="hidden" value="{$v.page|default=1}" name="page" />
+           <div class="switch {if condition='$v.page == 1'}on{/if}" id="closeweb"><em ontxt="打开" offtxt="关闭">{if condition='$v.page==1'}打开{else/}关闭{/if}</em><i></i></div>
+            </div>
+          </li>
+
+		  <li>
+            <label>Wap简化分页模式：</label>
+            <div class="item">
+              <input type="hidden" value="{$v.wap_page|default=1}" name="wap_page" />
+           <div class="switch {if condition='$v.wap_page == 1'}on{/if}" id="closeweb"><em ontxt="打开" offtxt="关闭">{if condition='$v.wap_page==1'}打开{else/}关闭{/if}</em><i></i></div>
+            </div>
+          </li>
+
+          <li>
+            <label>搜索页分页条数：</label>
+            <div class="item">
+              <input type="text" name="search_page" value="{$v.search_page|default=1}" class="input"/>
+            </div>
+          </li>
+		  <li>
+            <label>搜索页顶图：</label>
+            <div class="item">
+              <input type="text" name="search_banner" value="{$v.search_banner}" class="input"/>
+              <button type="button" class="button fl" onclick="pskcms.showupload(this)" id="image1" at="dg"><i class="icon-plus"></i>浏览上传</button>
+              <div class="clear"></div>
+              <div class="input-image">{if $v.search_banner}<img src="{$v.search_banner}" alt="" />{/if}</div>
+            </div>
+          </li>
+          <li>
+            <label>&nbsp;</label>
+            <div class="item">
+              <button type="submit" onclick="" class="button"><i class="icon-check"></i>提交</button>
+            </div>
+          </li>
+        </ul>
+      </form>      
+  </div>
+</div>
+<script>
+pskcms.submitform("{:url('other')}");
+</script>

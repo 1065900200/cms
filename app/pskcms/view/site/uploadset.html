@@ -1,0 +1,31 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <h2>上传设置</h2>
+  </div>
+  <div class="form">
+    <form method="post" action="{:url('info')}" class="pskcmsform" data-type="ajax">      
+        <ul>
+          <li>
+            <label>文件大小限制：</label>
+            <div class="item">
+              <input type="text" name="upload_size" value="{$v.upload_size}" datatype="*" nullmsg="请输入文件上传大小" class="input w60"/><span class="tips">1024*1024*10=10M</span>
+            </div>
+          </li>
+         <li>
+            <label>允许上传后缀：</label>
+            <div class="item">
+              <input type="text" name="upload_ext" value="{$v.upload_ext}" datatype="*" nullmsg="请输入允许上传后缀" class="input w60"/><span class="tips">多个请用逗号分割</span>
+            </div>
+          </li>
+          <li>
+            <label>&nbsp;</label>
+            <div class="item">
+              <button type="submit" onclick="" class="button"><i class="icon-check"></i>提交</button>
+            </div>
+          </li>
+        </ul>
+      </form>      
+  </div>
+</div>
+<script>pskcms.submitform("{:url('uploadset')}");</script>

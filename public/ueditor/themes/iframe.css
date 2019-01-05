@@ -1,0 +1,6 @@
+/*可以在这里添加你自己的css*/
+*{ padding:0px; margin:0px;}
+body{ margin:0px; font-size:12px; color:#000; }
+.view{ padding:5px 5px;}
+img{ max-width:100%;}
+p{ line-height:23px; margin:0px;}

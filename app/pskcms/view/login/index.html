@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>后台登录</title>
+<link rel="stylesheet" href="_ACSS_/admin.css?v={:time()}" />
+<script src="_AJS_/jquery.js"></script>
+<script src="_AJS_/validform5.3.2min.js?v={:time()}"></script>
+<script src="_LAYER_/layer.js"></script>
+
+</head>
+<body>
+  <div class="loginbg"></div>
+  <form method="post" class="loginform" action="{:url('Login/dologin')}" data-type="ajax">
+  <div class="login">
+    <h2>后台登录</h2>
+    <ul>
+      <li><i class="icon icon-user"></i>
+        <input type="text" class="intxt user" name="username" maxlength="20" autocomplete="off" placeholder="帐号" datatype="*" nullmsg="请输入帐号"/>
+      </li>
+      <li><i class="icon icon-unlock-alt"></i>
+        <input type="password" class="intxt pass" name="password" maxlength="20" autocomplete="off" placeholder="密码" datatype="*" nullmsg="请输入密码"/>
+      </li>
+      <li class="code">
+        <i class="icon icon-shield"></i>
+        <input type="text" class="intxt code" name="code" id="code" maxlength="4" autocomplete="off" placeholder="验证码" datatype="*" nullmsg="请输入验证码"/>
+        <img src="{:captcha_src()}" alt="验证码" onclick="this.src=this.src+'?'" class="codeimg">  
+      </li>
+      <li><input type="submit" value="登录" class="btn" /></li> 
+    </ul>
+  </div>
+  </form>
+<script>
+$(function(){
+	$(".loginform:eq(0)").Validform({
+		tiptype:3,
+		ajaxPost:true,
+		beforeSubmit:function(curform){
+            layer.load(1);
+        },
+		callback:function(data){
+			layer.closeAll();
+			if(data.status=="y"){
+				layer.alert(data.info, {icon:1},function(){
+					window.location.href = "{:url('Index/index')}";
+				});
+			}else{
+				layer.alert(data.info, {icon: 2});
+				$(".codeimg").click();
+			}
+		}
+	});
+})
+</script>
+</body>
+</html>

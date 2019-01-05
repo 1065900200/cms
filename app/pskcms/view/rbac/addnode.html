@@ -1,0 +1,72 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <h2>{$v.id?'编辑':'添加'}节点</h2>
+    <a href="javascript:history.go(-1);" class="btn fr"><i class="icon-mail-reply (alias)"></i>返回</a></div>
+  <div class="form">
+    <form method="post" action="{:url('addnode')}" class="pskcmsform">
+    <input type="hidden" name="id" value="{$v.id}" />
+    <ul>      
+      <li>
+        <label>节点标题：</label>
+        <div class="item">
+        <input type="text" name="title" value="{$v.title}" maxlength="15" class="input" datatype="*" nullmsg="请输入标题"/></div>
+      </li> 
+       <li><label>英文名称：</label>
+      	  <div class="item">
+          <input type="text" class="input" name="name" value="{$v.name}" />          
+          </div>
+      </li>   
+     <li>
+        <label>类型：</label>
+        <div class="item">
+          <div class="select"><i class="icon-caret-down"></i>
+          <input type="hidden" name="level" value="{$v.level|default='1'}" class="inputval" />          
+          <input type="text" readonly="readonly" placeholder="请选择类型" value="项目" class="input" />
+          <dl class="select-value syui-anim syui-anim-up">            
+            <dd data="1" {$v.level==1?'class=selected':''} >项目</dd>
+            <dd data="2" {$v.level==2?'class=selected':''} >模块</dd> 
+            <dd data="3" {$v.level==3?'class=selected':''} >操作</dd>             
+          </dl>
+        </div>        
+        </div> 
+      </li>
+     <li>
+        <label>父节点：</label>
+        <div class="item">
+          <div class="select"><i class="icon-caret-down"></i>
+          <input type="hidden" name="pid" value="{$v.pid|default=0}" class="inputval" />          
+          <input type="text" readonly="readonly" placeholder="请选择父节点" value="根节点" class="input" />
+          <dl class="select-value syui-anim syui-anim-up">
+            {volist name="node" id="vo"}
+            {if condition="$vo.level eq 1"}
+            <dd data="{$vo.id}" {$vo.id==$v.pid?'class=selected':''} >{$vo.title}</dd>
+            {else/}
+            <dd data="{$vo.id}" {$vo.id==$v.pid?'class=selected':''} >|--{$vo.title}</dd>
+            {/if}
+            {/volist}
+          </dl>
+        </div>        
+        </div>
+      </li>  
+       <li><label>状态：</label>
+      	  <div class="item">
+          <input type="hidden" value="{$v.status}" name="status" />
+          <div class="switch {$v.status==1?on:''}"><em ontxt="正常" offtxt="锁定">{$v.status==1?'正常':'锁定'}</em><i></i></div>
+          </div>
+      </li>   
+       <li><label>排序：</label>
+      	  <div class="item">
+          <input type="text" class="input" type="number" value="{$v.sort}" name="sort"  errormsg="只能为数字" nullmsg="请输入排序" />          
+          </div>
+      </li>
+      <li>
+        <label>节点描述：</label>
+        <div class="item"><textarea name="remark" class="input" style="height:100px;">{$v.remark}</textarea></div>
+      </li>
+      <li><label>&nbsp;</label><div class="item"><button type="submit" class="button"><i class="icon-check"></i>{$v.id?'编辑':'添加'}</button></div></li>
+    </ul>
+    </form>
+  </div>
+</div>
+<script> pskcms.submitform("{:url('node')}"); </script>

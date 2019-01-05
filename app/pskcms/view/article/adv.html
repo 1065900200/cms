@@ -1,0 +1,132 @@
+{include file="index/head" /}
+<div class="box">
+  {if condition="$act eq 'edit'"}
+  <div class="form" style="border:1px solid #eee; margin-top:25px; padding-top:0px;">
+    <div class="ht" style="border-bottom:1px solid #eee; padding:12px; margin-bottom:25px; color:#909ba5; background:#f5f8fb;">{$name}添加</div>
+    <form method="post" action="{:url('add')}" class="pskcmsform">
+      <input type="hidden" name="id" value="{$v.id}" />
+      <input type="hidden" name="nid" value="{$nid}" />
+      <input type="hidden" name="mid" value="{$mid}" />
+      <ul class="tabcon" style="display:block;">
+        <li>
+          <label>标题：</label>
+          <div class="item">
+            <input type="text" name="title" class="input" value="{$v.title}" datatype="*" nullmsg="请输入标题"/>
+          </div>
+        </li>
+         <li>
+          <label>图片：</label>
+          <div class="item"> 
+            <input type="text" name="img" class="input" value="{$v.img}"/>
+            <button type="button" class="button fl" onclick="pskcms.showupload(this)" id="image1" at="dg"><i class="icon-plus"></i>上传图片</button>
+            <span class="tips">{$imgtips}</span>
+            <div class="clear"></div>
+            <div class="input-image">{if $v.img}<img src="{$v.img}" alt="" />{/if}</div>         
+          </div>
+        </li>
+        {if condition="$nid neq 85"}
+        <li>
+          <label>连接地址:</label>
+          <div class="item">
+            <input type="text" class="input w60" name="url" value="{$v.url}" />
+          </div>
+        </li>
+        {/if}
+       <li>
+          <label>排序：</label>
+          <div class="item">
+            <input type="text" name="sort" value="{$v.sort}" ignore=ignore datatype="n" errormsg="只能输入数字" class="input" />
+          </div>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <label>&nbsp;</label>
+          <div class="item">
+            <button type="submit" class="button"><i class="icon-check"></i>编辑</button> <button type="button" onclick="javascript:history.go(-1);" class="button"><i class="icon-mail-reply (alias)"></i>返回</button>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+  {else}
+  <div class="box-head">
+    <h2>{$name}列表</h2>
+    <div class="fr">
+      &nbsp;<a href="javascript:history.go(-1);" class="btn fr"><i class="icon-mail-reply (alias)"></i>返回</a></div>
+  </div>
+  <table class="table">
+    <tr>
+      <th width="100">ID</th>
+      <th width="20%">标题</th>
+      <th width="20%">图片</th>
+      <th width="30%">URL</th>
+      <th>排序</th>
+      <th width="200">操作</th>
+    </tr>
+    {volist name="list" id="v"}
+    <tr>
+      <td>{$v.id}</td>
+      <td>{$v.title}</td>
+      <td><img src="{$v.img}" alt="" style="max-width:200px; max-height:50px;" /></td>
+      <td>{$v.url}</td>
+      <td><input type="text" class="sorttext" value="{$v.sort}"  onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" 
+        onblur="pskcms.sorts('{:url('sorts')}',{$v.id},this.value);" /></td>
+      <td><a href="{:url('adv',['id'=>$v.id,'nid'=>$nid,'act'=>'edit'])}" class="btn"><i class="icon-edit"></i> 编辑</a> <a href="javascript:void(0);" onclick="pskcms.del('{:url('del',['id'=>$v.id])}')" class="btn red"><i class="icon-trash-o"></i> 删除</a></td>
+    </tr>
+    {/volist}
+    <tr>
+    <td colspan="6"><div class="page">{$page}</div></td>
+    </tr>
+  </table>  
+  <div class="form" style="border:1px solid #eee; margin-top:25px; padding-top:0px;">
+    <div class="ht" style="border-bottom:1px solid #eee; padding:12px; margin-bottom:25px; color:#909ba5; background:#f5f8fb;">{$name}添加</div>
+    <form method="post" action="{:url('add')}" class="pskcmsform">
+      <input type="hidden" name="nid" value="{$nid}" />
+      <input type="hidden" name="act" value="{$act}" />
+      <input type="hidden" name="mid" value="{$mid}" />
+      <ul class="tabcon" style="display:block;">
+        <li>
+          <label>标题：</label>
+          <div class="item">
+            <input type="text" name="title" class="input" datatype="*" nullmsg="请输入标题"/>
+          </div>
+        </li>
+         <li>
+          <label>图片：</label>
+          <div class="item">
+            <input type="text" name="img" class="input" datatype="*" nullmsg="请上传图片"/>
+            <button type="button" class="button fl" onclick="pskcms.showupload(this)" id="image1" at="dg"><i class="icon-plus"></i>上传图片</button>
+            <span class="tips">{$imgtips}</span> 
+          </div>
+        </li>
+        {if condition="$nid neq 85"}
+        <li>
+          <label>连接地址:</label>
+          <div class="item">
+            <input type="text" class="input w60" name="url" />
+          </div>
+        </li>
+        {/if}
+       <li>
+          <label>排序：</label>
+          <div class="item">
+            <input type="text" name="sort" value="0" ignore=ignore datatype="n" errormsg="只能输入数字" class="input" />
+          </div>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <label>&nbsp;</label>
+          <div class="item">
+            <button type="submit" class="button"><i class="icon-check"></i>添加</button>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>  
+  {/if}
+</div>
+<script> 
+pskcms.submitform("{:url('adv',['nid'=>$nid])}"); 
+</script>

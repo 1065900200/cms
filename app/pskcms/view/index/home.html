@@ -1,0 +1,64 @@
+{include file="index/head" /}
+<div class="home">
+  <div class="row-full">
+    <div class="row-item">
+      <h2><span>快捷导航</span></h2>
+      <ul class="row-nav">
+        <li><a href="{:url('Site/info')}" target="main">
+          <p><span class="icon-gear (alias)"></span></p>
+          <h3>网站信息</h3>
+          </a> </li>
+        <li><a href="{:url('Site/nav')}" target="main">
+          <p><span class="icon-align-justify"></span></p>
+          <h3>导航管理<em>({$navCount})</em></h3>
+          </a> </li>
+        {if condition="PHP_VERSION lt 7"}
+        <li><a href="{:url('Database/backup')}" target="main">
+          <p><span class="icon-database"></span></p>
+          <h3>数据库管理<em>({$tableCount})</em></h3>
+          </a>
+        </li>
+        {/if}
+        {volist name="list" id="v"}
+        <li> <a href="{:url('Article/index',['nid'=>$v.id])}" target="main">
+          <p><span class="{$v.icon}"></span></p>
+          <h3>{$v.title}<em>({$v.id|getArticleCount=###})</em></h3>
+          </a> </li>
+        {/volist}
+         <li><a href="{:url('Site/book')}" target="main">
+          <p><span class="icon-comments"></span></p>
+          <h3>留言管理<em>({$bookCount})</em></h3>
+          </a>
+        </li>        
+      </ul>
+    </div>
+  </div>   
+  <div class="row-full">
+    <div class="row-item">
+      <h2><span>程序信息</span></h2>
+      <dl>
+        <dd>程序名称：<span style="color:#0C9"> 帕斯卡后台管理系统 </span></dd>
+        <dd><i class="icon-user"></i> 欢迎您，<span style="color:#0C9">{$Think.session.username} </span></dd>
+        <dd><a href="{:url('Rbac/adduser',['id'=>$Think.session.userid])}" class="btn"><i class="icon-key"></i> 修改密码</a> &nbsp;&nbsp;&nbsp;<a href="{:url('Login/logout')}" target="_blank" class="btn red"><i class="icon-sign-out"></i> 退出登录</a></dd>
+        <dd>开发团队： <a href="http://www.pskwl.com" target="_blank" style="color:#0C9">帕斯卡网络</a></dd>                
+      </dl>
+    </div>
+  </div>
+  <div class="row-full">
+    <div class="row-item">
+      <h2>服务器环境</h2>
+      <ul class="serverhj">
+        <li><span>操作系统：</span>{php} echo PHP_OS; {/php}</li>
+        <li><span>运行环境：</span>{php} echo php_sapi_name(); {/php}</li>
+        <li><span>Php版本：</span>{php} echo PHP_VERSION; {/php}</li>
+        <li><span>服务器域名：</span>{php} echo $_SERVER['SERVER_NAME']; {/php}</li>
+        <li><span>服务器Ip：</span>{php} echo $_SERVER['SERVER_ADDR']; {/php}</li>
+        <li><span>网站端口：</span>{php} echo $_SERVER['SERVER_PORT']; {/php}</li>
+        <li><span>运行内存：</span>{php} echo get_cfg_var ("memory_limit")?get_cfg_var("memory_limit"):"无"; {/php}</li>
+        <li><span>上传限制：</span>{php} echo get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许"; {/php}</li>        
+        <li><span>当前时间：</span>{php} echo date("Y-m-d H:i:s"); {/php}</li>       
+        <li><span>程序版本：</span>Pskcms {php} echo PSKCMS_VERSION {/php}</li>
+      </ul>
+    </div>
+  </div>
+</div>

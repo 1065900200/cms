@@ -1,0 +1,26 @@
+{include file="index/head" /}
+<div class="box">
+<div class="box-head">
+    <ul class="search">
+        <li><a href="{:url('backup',['at'=>'backup'])}" class="btn"><i class="icon-mail-forward (alias)"></i>备份数据库</a></li>
+        </ul>
+  <a href="javascript:history.go(0);" class="btn fr"><i class="icon-refresh"></i> 刷新</a> </div>
+<div class="table-responsive">
+<table class="table">
+  <tr>
+    <th style="text-align:left; padding-left:31px;">表名</th>
+    <th>创建时间</th>
+    <th>更新时间</th>
+    <th>数据</th>
+  </tr>
+  {volist name="list" id="vo"}
+  <tr>
+    <td class="td1">
+      {$vo.name}</td>
+    <td>{$vo.create_time}</td>
+    <td>{$vo.update_time}</td>
+    <td>{$vo.rows}条</td>
+  </tr>
+  {/volist} 
+</table>
+</div>

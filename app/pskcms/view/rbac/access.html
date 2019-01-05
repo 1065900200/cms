@@ -1,0 +1,61 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+  <h2>权限分配</h2>
+  <a href="javascript:history.go(-1);" class="btn fr"><i class="icon-refresh"></i> 返回</a>
+  </div>
+  <form method="post" action="{:url('access')}" class="pskcmsform">
+  <input type="hidden" name="role_id" value="{$id}" />
+  <div class="authedit">
+    <ul>
+     <li><input type="checkbox" id="allselect" /> 全选</li>
+     {volist name="list" id="v"}    
+     <li class="level{$v.level} " id="{$v.id}">
+      	<div class="item" pid="{$v.pid}"><input type="checkbox" name="node_id[]" {if condition="$v.flag eq 1"} checked="checked" {/if} value="{$v.id}" /> {$v.title}</div>
+     </li>
+     {/volist}
+    </ul>
+    <button type="submit" class="button"><i class="icon-check"></i>分配权限</button>
+  </div> 
+  </form>
+</div>
+<script> 
+pskcms.submitform("{:url('role')}"); 
+//全选
+$(function() {
+	
+  var $selectAll = $("#allselect");	
+  $selectAll.click(function() {
+	  if ($selectAll.prop("checked") == true) {			
+		  $("input[name='node_id[]']").prop("checked", true);
+	  } else {			
+		  $("input[name='node_id[]']").prop("checked", false);
+	  }
+  });
+
+  $(".authedit input[name='node_id[]']").each(function(){
+	if ($(this).prop("checked") == false) {	
+		$selectAll.prop("checked", false);
+	}else{
+		$selectAll.prop("checked", true);
+	}
+  });
+
+  $(".level2 input[name='node_id[]'],.level1 input[name='node_id[]']").click(function(){
+	  	var id = $(this).parent().parent().attr("id");	
+  		if ($(this).prop("checked") == true) {	
+			$(".authedit .item[pid="+id+"] input[name='node_id[]']").prop("checked", true);	
+			$(".authedit .item[pid="+id+"]").each(function(){
+				$(".authedit .item[pid="+$(this).parent().attr("id")+"] input[name='node_id[]']").prop("checked", true);
+			});
+		}else{
+			$(".authedit .item[pid="+id+"] input[name='node_id[]']").prop("checked", false);
+			$(".authedit .item[pid="+id+"]").each(function(){
+				$(".authedit .item[pid="+$(this).parent().attr("id")+"] input[name='node_id[]']").prop("checked", false);
+			});
+		}
+  })
+
+
+});
+</script>

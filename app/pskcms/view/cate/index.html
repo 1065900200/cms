@@ -1,0 +1,58 @@
+{include file="index/head" /}
+<div class="box">
+    <div class="box-head">
+  	  <a href="{:url('add',['nid'=>$nid])}" class="btn"><i class="icon-plus-square-o"></i>添加分类</a>
+      <a href="javascript:history.go(0);" class="btn fr"><i class="icon-refresh"></i> 刷新</a> </div>
+    <table class="table">
+      <tr>
+        <th width="100">ID</th>        
+        <th style="text-align:left">分类名称</th>
+        <th style="text-align:left">网址URL名称</th>
+        <th>是否显示</th>
+        <th>排序</th>
+        <th width="200">操作</th>
+      </tr>
+      {volist name="list" id="v"}
+      <tr>
+        <td>{$v.id}</td>       
+        <td style="text-align:left">{$v.title}</td>
+        <td style="text-align:left">{$v.entitle}</td>
+        <td>{if condition="$v.isshow eq 1"}<font color="#00CC99">显示</font>{else/}隐藏{/if}</td>
+        <td><input type="text" class="sorttext" value="{$v.sort}"  onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" 
+        onblur="pskcms.sorts('{:url('sorts')}',{$v.id},this.value);" /></td>
+        <td>
+        <a href="{:url('add',['id'=>$v.id,'nid'=>$v.nid])}" class="btn"><i class="icon-edit"></i> 编辑</a>
+        <a href="javascript:void(0);" onclick="pskcms.del('{:url('del',['id'=>$v.id])}')" class="btn red"><i class="icon-trash-o"></i> 删除</a>
+        </td>
+      </tr>
+      {volist name="v['son']" id="vo"}
+      <tr>
+        <td>{$vo.id}</td>       
+        <td style="text-align:left; color:#0CC">&nbsp;&nbsp;&nbsp;&nbsp;|--{$vo.title}</td>
+        <td style="text-align:left">{$vo.entitle}</td>
+        <td>{if condition="$vo.isshow eq 1"}<font color="#00CC99">显示</font>{else/}隐藏{/if}</td>
+        <td><input type="text" class="sorttext" value="{$vo.sort}"  onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" 
+        onblur="pskcms.sorts('{:url('sorts')}',{$vo.id},this.value);" /></td>
+        <td>
+        <a href="{:url('add',['id'=>$vo.id,'nid'=>$vo.nid])}" class="btn"><i class="icon-edit"></i> 编辑</a>
+        <a href="javascript:void(0);" onclick="pskcms.del('{:url('del',['id'=>$vo.id])}')" class="btn red"><i class="icon-trash-o"></i> 删除</a>
+        </td>
+      </tr>
+     {volist name="vo['son']" id="vs"}
+      <tr>
+        <td>{$vs.id}</td>       
+        <td style="text-align:left; color:#888">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--{$vs.title}</td>
+        <td style="text-align:left">{$vs.entitle}</td>
+        <td>{if condition="$vs.isshow eq 1"}<font color="#00CC99">显示</font>{else/}隐藏{/if}</td>
+        <td><input type="text" class="sorttext" value="{$vs.sort}"  onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" 
+        onblur="pskcms.sorts('{:url('sorts')}',{$vs.id},this.value);" /></td>
+        <td>
+        <a href="{:url('add',['id'=>$vs.id,'nid'=>$vs.nid])}" class="btn"><i class="icon-edit"></i> 编辑</a>
+        <a href="javascript:void(0);" onclick="pskcms.del('{:url('del',['id'=>$vs.id])}')" class="btn red"><i class="icon-trash-o"></i> 删除</a>
+        </td>
+      </tr>
+      {/volist}
+      {/volist}
+      {/volist}
+    </table>
+</div>

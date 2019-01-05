@@ -1,0 +1,24 @@
+{include file="index/head" /}
+<div class="box">
+  <div class="box-head">
+    <h2>站点地图</h2>
+  </div>
+  <div class="form">     
+    <ul>  
+      <li>
+        <label>站点地图路径：</label>
+        <div class="item">
+         <input type="text" readonly value="{$url}" class="input" />
+         <a href="{$url}" target="_blank" class="btn" style="margin-top:6px; float:left; margin-left:12px;"><i class="icon-leaf"></i> &nbsp;浏览地图</a>
+        </div>
+      </li>
+      <li>
+        <label>&nbsp;</label>
+        <div class="item">
+          <button type="button" onClick="window.location.href='{:url('sitemap',['act'=>'go'])}'" class="button"><i class="icon-check"></i>生成站点地图</button>
+        </div>
+      </li>
+    </ul>    
+  </div>
+</div>
+
