@@ -22,7 +22,6 @@ define('APP_NAME','pskcms');
 define('VIEW_PATH', './tpl/'); //定义模板路径
 define('PSKCMS_NAME', 'Pskcms'); //系统名称
 define('PSKCMS_VERSION', 'v1.0'); //版本号
-echo "asd";
 
 // 加载框架引导文件
 require __DIR__ . '/libs/start.php';
