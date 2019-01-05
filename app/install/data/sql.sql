@@ -1,9 +1,7 @@
 --
--- MySQL database dump
--- Created by DbManage class, Power By yanue. 
--- http://yanue.net 
+-- MySQL database psk
+-- http://www.pskwl.com 
 --
--- 主机: 120.27.95.231
 -- 生成日期: 2018 年  12 月 05 日 15:06
 -- MySQL版本: 5.5.53
 -- PHP 版本: 5.5.38
