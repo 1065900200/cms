@@ -208,6 +208,7 @@ CREATE TABLE `psk_cate` (
   `url` varchar(255) DEFAULT NULL COMMENT '跳转url',
   `target` char(1) DEFAULT NULL COMMENT '是否新页面打开',
   `page` int(11) DEFAULT NULL,
+  `wap_page` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
@@ -284,6 +285,7 @@ CREATE TABLE `psk_nav` (
   `url` varchar(255) DEFAULT NULL COMMENT 'url链接',
   `target` char(1) DEFAULT NULL COMMENT '是否新页面打开',
   `page` int(11) DEFAULT NULL,
+  `wap_page` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
