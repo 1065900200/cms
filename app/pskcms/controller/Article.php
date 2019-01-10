@@ -43,11 +43,18 @@ class Article extends Base
 		if(input('title')!=""){			
 			$map['title'] = array('like','%'.input('title').'%');
 		}	
-		$list = db('article')->where($map)->order($order)->paginate(10,false,['query' => request()->param()]);			
+		$list = db('article')->where($map)->order($order)->paginate(10,false,['query' => request()->param()]);
+		$nav_list=db('nav')->where(array('msg_tpl'=>'product'))->order("id")->select();	
+		if ($nav_list&& is_array($nav_list)) {
+			foreach ($nav_list as $k => $v) {
+				$nav_list[$k]['cate']= treelist('cate','',['nid'=>$v['id']]);
+			}
+		}
 		$cate = treelist('cate','',['nid'=>$this->nid]);
 		$page = $list->render();					
 		$this->assign("list",$list);
 		$this->assign("cate",$cate);
+		$this->assign("nav_list",$nav_list);
 		$this->assign("page",$page);
 		return $this->fetch(); 
     }
@@ -195,10 +202,20 @@ class Article extends Base
 	
 	//批量移动文章
 	public function movecate(){
-		$cid  = input('cid');		
+		$id  = input('cid');	
+		$re=db('cate')->where(array('id'=>$id))->select();
+		$field = array();
+		if ($re['0']['id']) {
+			$field['cid']=$re['0']['id'];
+			$field['nid']=$re['0']['nid'];
+		}else{
+			$tem=explode("-", $id);
+			$field['cid']='';
+			$field['nid']=$tem['1'];
+		}
 		if($_POST['id']){
 			foreach($_POST['id'] as $v){				
-				db('article')->where('id',$v)->setField('cid',$cid);
+				db('article')->where('id',$v)->setField($field);
 			}
 			$this->success("批量移动文章成功",url('index',['nid'=>$this->nid]));	
 		}else{
@@ -207,14 +224,19 @@ class Article extends Base
 	}
 	
 	//批量复制文章	
-	public function copyArticle(){	
+	public function copyArticle(){
 		$copy  = input('copynum');	
-		$id    = $_POST['id'][0];		
-		$data  = db('article')->where('id',$id)->find();		
-		unset($data['id']);				
-		for($i=0; $i < $copy; $i++){				
-			db('article')->insert($data);			
-		}
+		$id    = $_POST['id'];
+        foreach ($id as $k => $v) {
+        	$data  = db('article')->where('id',$v)->find();	
+        	if ($data['id']) {
+    			unset($data['id']);				
+				for($i=0; $i < $copy; $i++){				
+					db('article')->insert($data);		
+				}
+    		}	
+        }
+		
 		$this->success("批量复制文章成功",url('index',['nid'=>$this->nid]));					
 	}	
 	

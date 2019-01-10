@@ -105,25 +105,27 @@
               </select>
 			 
             </li>
-            {if condition="$iscid eq 1"}
             <li><span>移动到分类：</span>
               <select name="cid" onchange="pskcms.plattr('{:url('movecate')}',this)">
                 <option value="">请选择分类</option>                
-                {volist name="cate" id="vo"}                  
-                <option value="{$vo.id}">{$vo.title}</option>                
-                {volist name="vo['son']" id="s"}                    
-                <option value="{$s['id']}">&nbsp;&nbsp;&nbsp;|--{$s['title']}</option>                
-                {volist name="s['son']" id="b"}                    	
-                <option value="{$b['id']}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|----{$b['title']}</option>                
-                {/volist}
-                {/volist}
-                {/volist}              
+                {volist name="nav_list" id="list"} 
+                <option value="top-{$list.id}">{$list.title}</option>             
+                  {volist name="list['cate']" id="vo"}                  
+                  <option value="{$vo.id}">&nbsp;&nbsp;&nbsp;&nbsp;-{$vo.title}</option>                
+                  {volist name="vo['son']" id="s"}                    
+                  <option value="{$s['id']}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--{$s['title']}</option>                
+                  {volist name="s['son']" id="b"}                    	
+                  <option value="{$b['id']}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|----{$b['title']}</option>                
+                  {/volist}
+                  {/volist}
+                  {/volist}              
+                {/volist}      
               </select>
             </li>
-            {/if}
             <li> <span>请选择复制：</span>
               <select name="copynum" onchange="pskcms.plattr('{:url('copyArticle')}',this)">
                 <option value="">请选择复制</option>
+                <option value="1">复制1条</option>
                 <option value="5">复制5条</option>
                 <option value="10">复制10条</option>
                 <option value="15">复制15条</option>

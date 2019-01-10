@@ -48,7 +48,7 @@ function getNID(){
 	$url = substr($url,2);	
 	$url = substr($url,0,-1);	
 	if(strpos($url,'&page') !== false){		
-		$url = substr($url,0,-6);				
+		$url = substr($url,0,strrpos($url,'&'));  	
 	}
 	if(strpos($url,'&title') !== false){
 		$url = substr($url,0,strrpos($url,'/'));					

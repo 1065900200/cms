@@ -51,7 +51,7 @@ class Common extends Base
 			  $url = substr($url,strpos($url,'//')+1);
 			 
 			  $namearr = explode('.',$info->getFilename());				 
-			  $imgarry = array("jpg","png","gif","bmp","jpeg");			  	  
+			  $imgarry = array("jpg","JPG","png","PNG","gif","GIF","bmp","BMP","jpeg","JPEG");			  	  
 			  if(!in_array($namearr[1],$imgarry)){
 					$type = 2; 
 			  }	

@@ -78,11 +78,11 @@ class Bootstrap extends Paginator
             $block['first'] = $this->getUrlRange(1, 2);
             $block['last']  = $this->getUrlRange($this->lastPage - ($window + 2), $this->lastPage);
         } else {
-            $block['first']  = $this->getUrlRange(1, 2);
+            // $block['first']  = $this->getUrlRange(1, 2);
             $block['slider'] = $this->getUrlRange($this->currentPage - $side, $this->currentPage + $side);
             $block['last']   = $this->getUrlRange($this->lastPage - 1, $this->lastPage);
         }
-
+       
         $html = '';
 
         if (is_array($block['first'])) {
@@ -90,7 +90,7 @@ class Bootstrap extends Paginator
         }
 
         if (is_array($block['slider'])) {
-            $html .= $this->getDots();
+            // $html .= $this->getDots();
             $html .= $this->getUrlLinks($block['slider']);
         }
 
@@ -117,10 +117,12 @@ class Bootstrap extends Paginator
                 );
             } else {
                 return sprintf(
-                    '<ul class="pagination">%s %s %s</ul>',
+                    '<ul class="pagination">%s %s %s %s %s</ul>',
+                    $this->getAvailablePageWrapper($this->url(1),'首页'),
                     $this->getPreviousButton(),
                     $this->getLinks(),
-                    $this->getNextButton()
+                    $this->getNextButton(),
+                    $this->getAvailablePageWrapper($this->url($this->lastPage),'尾页')
                 );
             }
         }
