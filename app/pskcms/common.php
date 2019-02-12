@@ -1,5 +1,5 @@
 <?php
-use sy\ChinesePinyin;
+use psk\ChinesePinyin;
 //状态
 function _status($v){
 	if($v==1){
