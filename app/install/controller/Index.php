@@ -66,7 +66,7 @@ class Index extends \think\Controller {
 				//缓存管理员信息
 				session('admin_info', $info);
 			}
-
+		
 			//检测数据库配置
 			if (!is_array($db) || empty($db[0]) || empty($db[1]) || empty($db[2]) || empty($db[3]) || empty($db[4]) || empty($db[5]) || empty($db[6])) {
 				return $this->error('请填写完整的数据库配置');
@@ -83,10 +83,17 @@ class Index extends \think\Controller {
 				$dbname = $DB['database'];
 				unset($DB['database']);
 				$db  = \think\Db::connect($DB);
-				$sql = "CREATE DATABASE IF NOT EXISTS `{$dbname}` DEFAULT CHARACTER SET utf8";
+				//判断数据库是否存在
+				$sql = "show databases like '$dbname'";
+				$db->execute($sql);
 				if (!$db->execute($sql)) {
-					return $this->error($db->getError());
-				} else {
+					$sql = "CREATE DATABASE IF NOT EXISTS `{$dbname}` DEFAULT CHARACTER SET utf8";
+					if (!$db->execute($sql)) {
+						return $this->error($db->getError());
+					} else {
+						return $this->redirect('install/index/sql');
+					}
+				}else{
 					return $this->redirect('install/index/sql');
 				}
 			}
