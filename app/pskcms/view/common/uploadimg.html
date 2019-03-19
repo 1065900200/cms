@@ -1,3 +1,31 @@
+<script src="_AJS_/jquery.js?v={:time()}"></script>
+<script src="_AJS_/jquery.ajaxContent.pack.js?v={:time()}"></script>
+
+<style>
+.pagination{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination li.disabled span{
+		float: left;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid #eee;
+    margin: 0 2px;
+    padding: 5px 10px;
+    color: #888;
+}
+.pagination li.active span{
+		background-color: #09c;
+    border-color: #09c;
+		color: #fff;
+		cursor: pointer;
+    border: 1px solid #eee;
+    margin: 0 2px;
+    padding: 5px 10px;
+}
+</style>
 <div class="uploadbox">
   <input type="hidden" name="upfile_id" value="{$id}" />
   <input type="hidden" name="at" value="{$at}" />
@@ -9,10 +37,12 @@
     {/volist}
     </ul>
     <div class="clear"></div>
-    <div class="upimg_page"></div>
-  </div>
+	</div>
+	<div class="upimg_page">
+		{$page}
+	</div>
 </div>
-<script src="/public/admin/js/jPages.js"></script> 
+<!--<script src="/public/admin/js/jPages.js"></script>-->
 <script>
 layui.use('upload', function(){
   var upload = layui.upload;		   
@@ -31,7 +61,7 @@ layui.use('upload', function(){
       if(res.status=="y"){		  
 	  	  var html =  '<li><a href="javascript:void(0);" onclick="getupimg(this)"><span><img src="'+res.thumb+'" big="'+res.url+'" alt="" /></span></a></li>';
 	      $(".upload_list ul").prepend(html);	 
-	      upimgpage();
+	      //upimgpage();
 	  }else{		
 	  	 layer.msg(res.info,{icon: 2,time:1500});	 
 	  }
@@ -68,9 +98,13 @@ function getupimg(obj){
 
 //AJAX加载分页
 $(function(){
-   upimgpage();
+   $('.pagination').find("li > a").ajaxContent({
+		event:'click', //mouseover
+		target:'.layui-layer-content'
+	});
 });
 
+/*
 function upimgpage(){
 	 $(".upimg_page").jPages({
         containerID : "upload_list",
@@ -80,5 +114,5 @@ function upimgpage(){
         delay : 10
     });
 }
-
+*/
 </script>

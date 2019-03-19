@@ -16,7 +16,9 @@ class Common extends Base
 		$this->assign("id",input('id'));
 		$this->assign("at",input('at'));		
 		$this->assign("type",1);
-		$list = db('upload')->where('type=1')->order("id desc")->select();
+		$list = db('upload')->where('type=1')->order("id desc")->paginate(18,false,['query' => request()->param()]);
+        $page = $list->render();
+        $this->assign("page",$page);
 		$this->assign("list",$list);
 		return $this->fetch(); 
 	}
